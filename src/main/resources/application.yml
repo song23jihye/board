@@ -1,0 +1,17 @@
+
+spring:
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/ #templates files' directory path
+    suffix: .html #file extension(.html, .mustache)
+    cache: false #without reRun, modified contents apply
+    encoding: utf-8
+  datasource:
+    url: jdbc:mysql://localhost:3306/coupang2
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update #default: none
+

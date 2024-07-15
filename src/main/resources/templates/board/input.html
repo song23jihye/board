@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS (optional) -->
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 30px;
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <form action="/board/input" method="post" name="boardAddForm">
+        <input type="text" name="title" placeholder="title"/>
+        <input type="text" name="text" placeholder="text"/>
+        <input type="submit" value="글쓰기"/>
+    </form>
+</div>
+
+</body>
+</html>

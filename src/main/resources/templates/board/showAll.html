@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All board</title>
+</head>
+<body>
+<hr/>
+<h1>게시판</h1>
+<table th:border="1">
+    <tr onclick="javascript:location.href='/board/showOne/${board.id}'">
+        <th th:text="id" th:width="50"></th>
+        <th th:text="title" th:width="100"></th>
+        <th th:text="content" th:width="200"></th>
+        <th th:text="writerId" th:width="50"></th>
+    </tr>
+    <tr th:each="board : ${list}">
+        <td th:text="${board.id}"></td>
+        <td th:text="${board.title}"></td>
+        <td th:text="${board.text}"></td>
+        <td th:text="${board.writerId}"></td>
+    </tr>
+</table>
+<hr/>
+<p><a th:href="@{/board/input}">새 글 등록</a></p>
+<hr/>
+</body>
+</html>

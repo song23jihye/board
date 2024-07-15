@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS (optional) -->
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .profile-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .profile-card h2 {
+            margin-bottom: 10px;
+        }
+        .profile-card .text-muted {
+            font-size: 0.875em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+        <div class="profile-card">
+            <h2>내 정보</h2>
+            <p class="text-muted">USER_NAME</p>
+            <h4 th:text="${curmember.username}">USER_Nickname</h4>
+            <p class="text-muted">USER_NICKNAME</p>
+            <h4 th:text="${curmember.nickname}">USER_Nickname</h4>
+        </div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
