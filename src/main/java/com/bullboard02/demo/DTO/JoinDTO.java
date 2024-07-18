@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class JoinDTO {
-    private String username;
+    private String email;
     private String password;
     private String nickname;
-    public String toString(JoinDTO joinDTO){
-        return "joinDTO username: "+username+"password: "+password+"nickname: "+nickname;
-    }
+
+
 }

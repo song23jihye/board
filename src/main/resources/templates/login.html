@@ -1,14 +1,35 @@
 <html>
     <head>
         <title>Log in</title>
+        <style>
+            .page-title {
+                font-size: 2.0rem;
+                font-weight: bold;
+            }
+            .form-container{
+                background-color: #ffffff;
+                padding: 10rem;
+                border-radius: .375rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                max-width: 400px;
+                width:100%;
+            }
+        </style>
     </head>
     <body>
-        login page
-    <hr>
-        <form action="/loginProc" method="post" name="logInForm">
-            <input id="username" type="text" name="username" placeholder="id">
-            <input id="password" type="text" name="password" placeholder="password">
-            <input type="submit" value="log In"/>
-        </form>
+        <div class="form-container">
+            <div class="page-title">Log in</div>
+            <hr/>
+            <div>
+                <form action="/loginProc" method="post" name="logInForm">
+                    <input id="username" type="text" name="username" placeholder="email">
+                    <input id="password" type="password" name="password" placeholder="password">
+                    <input type="submit" value="log In"/>
+                </form>
+            </div>
+            <div class="col-40 text-center">
+                <p><a th:href="@{/join}" class="btn btn-outline-secondary">회원가입</a></p>
+            </div>
+        </div>
     </body>
 </html>

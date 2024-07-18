@@ -36,4 +36,10 @@ public class Board {
     @Column
     @CreationTimestamp
     private LocalDateTime modifyDate; // 날짜와 시간
+
+    public void changeTitle(String title){
+        this.title = title;
+    }//unit test에서 Assertion 테스트
+
+
 }

@@ -14,16 +14,16 @@ public class CustomUserDetails implements UserDetails {
         return member;
     }
 
-    public CustomUserDetails(Member member){//UserDetailService에서 갖다쓰는 생성자
+    public CustomUserDetails(Member member){ //UserDetailService에서 갖다쓰는 생성자
         this.member=member;
-    }//CustomUserDetailsService에서 return 해준 객체가 이 생성자를 통함
+    }
+    //CustomUserDetailsService에서 return 해준 객체가 이 생성자를 통함
     //security config에게 전달하는 부분은?
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //role return
         Collection<GrantedAuthority> collection = new ArrayList<>();
         collection.add(new GrantedAuthority(){
-
             @Override
             public String getAuthority() {
                 return member.getRole();

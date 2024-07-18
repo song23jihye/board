@@ -26,9 +26,11 @@ public class SecurityConfig {
         httpSecurity.csrf((auth) -> auth.disable());
         httpSecurity
                 .authorizeHttpRequests((auth)->auth
-                .requestMatchers("/join","/login","/joinProc").permitAll()
+                //requestMatchers : URL 매핑 -> controller에 만들어준 url
+                .requestMatchers("/","/main","/board","/board/showAll","/board/showOne/*"
+                        ,"/join","/login","/joinProc").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
-                .requestMatchers("/","/main","/board","/my/**").hasAnyRole("ADMIN","USER") //마이페이지
+                .requestMatchers("/my/**").hasAnyRole("ADMIN","USER") //마이페이지
                 .anyRequest().authenticated()
                 //순서
         );

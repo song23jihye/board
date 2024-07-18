@@ -18,13 +18,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member memberData = memberRepository.findByUsername(username);//repostiory를 통해 db 접근하고 전달받음
+        Member memberData = memberRepository.findByUsername(username);
         if(memberData!=null){
             return new CustomUserDetails(memberData);
-            //username만 검증해서 데이터가 존재하면 DTO를 새로 생성하는 거야?
-            //->CustomUserDetails클래스에 Member(Entity)객체 parameter로 한 생성자 존재해야함
-            //비밀번호 검증은?? loginProc은?
         }
         return null;
     }
+
 }
+
+//repostiory를 통해 db 접근하고 전달받음
+//username만 검증해서 데이터가 존재하면 DTO를 새로 생성하는 거야?
+//->CustomUserDetails클래스에 Member(Entity)객체 parameter로 한 생성자 존재해야함
+//비밀번호 검증은?? loginProc은?

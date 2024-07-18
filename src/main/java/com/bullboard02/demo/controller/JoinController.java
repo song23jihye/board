@@ -16,7 +16,6 @@ public class JoinController {
     public String joinP(){
         return "signin";
     }
-
     @PostMapping("joinProc")
     public String joinProc(JoinDTO joinDTO){
         joinService.register(joinDTO);

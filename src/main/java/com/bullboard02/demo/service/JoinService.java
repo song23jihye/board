@@ -15,19 +15,19 @@ public class JoinService {
     @Autowired
     MemberRepository memberRepository;
     public void register(JoinDTO joinDTO){
-        boolean isuser = memberRepository.existsByUsername(joinDTO.getUsername());
+        boolean isuser = memberRepository.existsByUsername(joinDTO.getEmail());
         if(isuser){
             return;
         }
         Member data = new Member();
 
-        data.setUsername(joinDTO.getUsername());
+        data.setUsername(joinDTO.getEmail());//joinDTO의 email을 entity의 username으로 set
         data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
         data.setNickname(joinDTO.getNickname());
         data.setRole("ROLE_USER"); //처음은 "ROLE_ADMIN"
 
         memberRepository.save(data); //jpa에서 data등록
-        System.out.println("joinDTO.getUsername()"+joinDTO.getUsername());
+        System.out.println("joinDTO.getUsername()"+joinDTO.getEmail());
     }
 
 }

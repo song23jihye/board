@@ -13,7 +13,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     public void persist(Board board){
         boardRepository.save(board);
-        //service 파일에서 repository.save(엔티티)
     }
     public List<Board> selectAll(){
         return (List<Board>)boardRepository.findAll();

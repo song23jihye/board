@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
     @Autowired
     private BoardService boardService;
@@ -25,19 +26,19 @@ public class BoardController {
 //    private CustomUserDetails customUserDetails;
 //    CustomUserDetails customUserDetails = new CustomUserDetails();
 
-    @GetMapping("/board")
+    @GetMapping("")
     public String boardList(Model model){
         List<Board> list = boardService.selectAll();
         model.addAttribute("list",list);
         return "board/showAll";
     }
     //삽입
-    @GetMapping("/board/input")
+    @GetMapping("/input")
     public String inputPage(){
         return "board/input";
     }
 
-    @PostMapping("/board/input")
+    @PostMapping("/input")
     public String inputPageProc(BoardDTO boardDTO){
         Board boarddata = new Board();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,11 +54,11 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    @GetMapping("/board/showOne/{boardid}")
-    public String showOne(@PathVariable Long boardid,Model model){
+    @GetMapping("/showOne/{boardid}")
+    public String showOne(@PathVariable Long boardid, Model model){
         Board board = boardService.selectOne(boardid);
         model.addAttribute("board",board);
-        return "redirect:/board/detail";
+        return "board/detail";
     }
 }
 
