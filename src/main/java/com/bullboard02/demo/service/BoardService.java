@@ -4,7 +4,10 @@ import com.bullboard02.demo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +27,4 @@ public class BoardService {
     public Board selectOne(Long id){
         return boardRepository.getOne(id);
     }
-
 }

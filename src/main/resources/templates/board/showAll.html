@@ -96,13 +96,13 @@
             width: 100px; /* Title 열의 너비 */
         }
 
-        /*.table th:nth-child(3),*/
-        /*.table td:nth-child(3) {*/
-        /*    width: 300px; !* Content 열의 너비 *!*/
-        /*}*/
-
         .table th:nth-child(3),
         .table td:nth-child(3) {
+            width: 30px; /* Content 열의 너비 */
+        }
+
+        .table th:nth-child(4),
+        .table td:nth-child(4) {
             width: 50px; /* Writer ID 열의 너비 */
         }
     </style>
@@ -115,19 +115,18 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-<!--                <th>Reply</th>-->
-                <th>WriterName</th>
+                <th>Num of comments</th>
+                <th>Writer Name</th>
             </tr>
         </thead>
         <tbody th:each="board : ${list}">
             <tr>
-                <td th:text="${board.id}"></td>  <!-- 오른쪽에서부터 확장되는 밑줄 -->
-<!--                <td class="custom-hover fromLeft" th:text="${board.title}" th:href="@{/board/showOne/${board.id}}"></td>  &lt;!&ndash; 왼쪽에서부터 확장되는 밑줄 &ndash;&gt;-->
+                <td th:text="${board.id}"></td>
                 <td class="custom-hover fromLeft" >
                     <a th:href="@{|/board/showOne/${board.id}|}" th:text="${board.title}">보기</a>
                 </td>
-<!--                <td th:text="${board.text}"></td>  &lt;!&ndash; 기본 밑줄 효과 &ndash;&gt;-->
-                <td th:text="${board.writer}"></td>  <!-- 오른쪽에서부터 확장되는 밑줄 -->
+                <td th:text="${commentCntMap[board.id]}"></td>  <!--댓글 수  ??-->
+                <td th:text="${nicknameMap[board.id]}"></td>
             </tr>
         </tbody>
     </table>

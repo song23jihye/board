@@ -18,7 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
 
     //long countCommentOfBoard(Long boardId);
     //이렇게 좆대로 말고 밑처럼 규칙 따르렴
-    long countByBoardid(Long boardId);
+    Long countByBoardid(Long boardId);
+
     @Override
     long count();
 }

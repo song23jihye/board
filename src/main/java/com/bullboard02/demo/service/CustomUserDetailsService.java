@@ -26,8 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return null;
     }
-    public Member MemberById(Long writerId){
-        return memberRepository.getOne(writerId);
+    public Member MemberById(Long id){
+        return memberRepository.getOne(id);
     }
 }
 

@@ -1,9 +1,16 @@
 package com.bullboard02.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -35,12 +42,12 @@ public class Comment {
 
     @NonNull
     @Column
-    @CreationTimestamp
-    private LocalDateTime entryDate;
+    @CreatedDate
+    private String createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
 
     @NonNull
     @Column
-    @CreationTimestamp
-    private LocalDateTime modifyDate;
+    @LastModifiedDate
+    private String modifiedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
 
 }

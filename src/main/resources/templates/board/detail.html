@@ -31,6 +31,29 @@
             font-weight: bold; /* 굵은 글꼴 */
             margin-top: 10px;
         }
+        .menu-section{
+            position: fixed; /* 고정 위치 */
+            bottom: 0; /* 하단에 고정 */
+            width: 100%; /* 전체 너비 */
+            background-color: lightslategray; /* 배경색 */
+            color: white; /* 텍스트 색상 */
+            padding: 10px 0; /* 패딩 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* 상단 그림자 효과 */
+            z-index: 1000; /* 다른 요소보다 위에 위치 */
+            transition: background-color 0.3s ease;
+        }
+        .menu-section a {
+            color: white; /* 링크 텍스트 색상 */
+            margin: 0 15px; /* 링크 간격 */
+            text-decoration: none; /* 밑줄 제거 */
+            font-size: 16px; /* 폰트 크기 */
+            transition: color 0.3s ease;
+        }
+
+        .menu-section a:hover {
+            color: #ffdd57; /* 호버 시 색상 변경 */
+        }
         .table{
             margin-top: 30px;
         }
@@ -64,15 +87,45 @@
             height: 100px;
             margin-bottom: 10px;
         }
-        .input{
-            width: 500px;
-            height: 32px;
-            font-size: 15px;
-            border: 0;
-            border-radius: 15px;
-            outline: none;
-            padding-left: 10px;
-            background-color: rgb(233, 233, 233);
+        /* Comment Form Styles */
+        .comment-form {
+            max-width: 600px; /* 폼의 최대 너비 설정 */
+            margin: 0;
+            /*margin: 0 auto; !* 중앙 정렬 *!*/
+            background-color: lightslategray; /* 배경색 */
+            padding: 20px; /* 패딩 */
+            border-radius: 8px; /* 둥근 모서리 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
+
+        .comment-form .form-control {
+            border: 2px solid; /*#007bff; /* 입력 필드 테두리 색상 */
+            border-radius: 4px; /* 입력 필드 둥근 모서리 */
+            width: 100%; /* 입력 필드 너비 설정 */
+            height: 50px; /* 입력 필드 높이 설정 */
+            font-size: 15px; /* 입력 필드 폰트 크기 */
+        }
+
+        .comment-form .form-control:focus {
+            border-color: #0056b3; /* 포커스 시 테두리 색상 */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 포커스 시 그림자 효과 */
+        }
+
+        .comment-form button[type="submit"] {
+            background-color: lightskyblue; /* 버튼 배경색 */
+            border: none; /* 버튼 테두리 제거 */
+            border-radius: 4px; /* 버튼 둥근 모서리 */
+            padding: 5px 10px; /* 버튼 패딩 */
+            font-size: 15px; /* 버튼 폰트 크기 */
+            transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+        }
+
+        .comment-form button[type="submit"]:hover {
+            background-color: deepskyblue; /* 호버 시 버튼 배경색 */
+        }
+        /* 간격을 추가하는 클래스 */
+        .mb-3 {
+            margin-bottom: 15px; /* 하단 마진 추가 */
         }
     </style>
 </head>
@@ -81,7 +134,7 @@
         <div class="board-section">
             <h2>게시글</h2>
             <p class="text-muted">작성자</p>
-            <h4 th:text="${board.writerId}">작성자명</h4>
+            <h4 th:text="${boardWriterNick}">작성자명</h4>
             <p class="text-muted">제목</p>
             <h4 th:text="${board.title}">제목</h4>
             <p class="text-muted">내용</p>
@@ -101,7 +154,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="com : ${comments}">
-                            <td th:text="${com.writerId}">작성자ID</td>
+                            <td th:text="${replynicknameMap[com.writerId]}">작성자</td>
                             <td th:text="${com.text}">댓글내용</td>
                             <td th:text="${com.entryDate}">작성일</td>
                             <td th:text="${com.modifyDate}">수정일</td>
@@ -109,14 +162,19 @@
                     </tbody>
                 </table>
             </div>
+            <div class="container mt-5">
             <!--어으씨 여기서 애먹었네 th:action-->
-            <form th:action="@{|${board.id}/commentAdd|}" th:object="${comments}" method="post">
-                <div class="mb-3">
-                    <input type="text" id="text" name="text" class="form-control" placeholder="댓글을 입력하세요">
-                </div>
-                <button type="submit" class="btn btn-primary">댓글 등록</button>
-            </form>
+                <form th:action="@{|${board.id}/commentAdd|}" th:object="${comments}" method="post" class="comment-form">
+                    <div class="mb-3">
+                        <input type="text" id="text" name="text" class="form-control" placeholder="댓글을 입력하세요">
+                    </div>
+                    <button type="submit" class="btn btn-primary">댓글 등록</button>
+                </form>
+            </div>
         </div>
+    </div>
+    <div class="menu-section">
+        <a class th:href="@{/board}">목록으로 돌아가기</a> <!--링크 vs 뒤로가기 뭐가 더 나음?-->
     </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>

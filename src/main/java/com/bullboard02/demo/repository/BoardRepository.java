@@ -10,6 +10,4 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     Board getOne(Long aLong);
 
 
-
-
 }
