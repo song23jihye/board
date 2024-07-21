@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.util.List;
 ///https://blog.naver.com/rorean/221587154921
-@Data//이거 entity에도 필요한가?
+@Data //이거 entity에도 필요한가?
 @NoArgsConstructor
 @Builder //어노테이션 사용을 위해서는 전체 필드를 포함하는 생성자 필요
 @AllArgsConstructor //-> 그래서 존재
@@ -16,7 +16,7 @@ public class Member {
 
     @NonNull
     @Column(nullable=false,updatable = false)
-    private String username; //entity의 username = DTO의 email (needs, preference에 따라 하는 것임)
+    private String username;
 
     @NonNull
     @Column(nullable=false,updatable = true)
@@ -24,8 +24,8 @@ public class Member {
 
     @Column(nullable = true,updatable = true)
     private String nickname;
-    private String role;//디폴트 "ROLE_USER"
 
-
+    @Column
+    private String role; //디폴트 "ROLE_USER"
 
 }

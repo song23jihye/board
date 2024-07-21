@@ -16,8 +16,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     Member findByUsername(String username);
 
-    Member findMemberById(Long id);
-
     Member getOne(Long id);
     //->jpa 커스텀 메소드 작성할 수 있음.
 //    Member findByUserId(String username);

@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     //user가 저장되어있는 repository를 Autowired를 통해 주입
@@ -24,7 +26,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return null;
     }
-
+    public Member MemberById(Long writerId){
+        return memberRepository.getOne(writerId);
+    }
 }
 
 //repostiory를 통해 db 접근하고 전달받음
