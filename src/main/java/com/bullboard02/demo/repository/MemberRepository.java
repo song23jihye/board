@@ -1,6 +1,8 @@
 package com.bullboard02.demo.repository;
 
 import com.bullboard02.demo.entity.Member;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +16,10 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     boolean existsByUsername(String username);//JPA공식문서 참고 - JPA 쿼리 메소드
 
-    Member findByUsername(String username);
+    @Override
+    <S extends Member> List<S> findAll(Example<S> example, Sort sort);
 
+    Member findByUsername(String username);
     Member getOne(Long id);
     //->jpa 커스텀 메소드 작성할 수 있음.
 //    Member findByUserId(String username);

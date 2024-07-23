@@ -25,6 +25,15 @@ public class CommentService{
     public List<Comment> selectByBoardid(Long boardid){
         return commentRepository.findAllByBoardid(boardid);
     }
+    public List<Comment> selectByid(Long id){
+        return commentRepository.findAllById(id);
+    }
+    public List<Comment> selectByParentIdAndBoardId(Long parentId,Long boardId){
+        return commentRepository.findAllByParentIdAndAndBoardid(parentId,boardId);
+    }
+    public List<Comment> selectByParentId(Long parentId){
+        return commentRepository.findAllByParentId(parentId);
+    }
 
     public Long countByBoardId(Long boardid){
         return commentRepository.countByBoardid(boardid);

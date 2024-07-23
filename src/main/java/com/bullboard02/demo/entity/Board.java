@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -33,13 +34,14 @@ public class Board {
     @Column(length=60)
     private String text;
 
+    @NonNull
     @Column//@Temporal을 생략하면 자바의 Date와 가장 유사한 timestamp로 정의됩니다.
-    @CreatedDate
-    private String createdDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime createdDate;
 
     @Column
-    @LastModifiedDate
-    private String modifiedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime modifiedDate;
 
     public void changeTitle(String title){
         this.title = title;

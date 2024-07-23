@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Controller
@@ -30,6 +32,8 @@ public class BoardController {
     private CommentService commentService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    
 //    @Autowired
 //    private CustomUserDetails customUserDetails;
 //    CustomUserDetails customUserDetails = new CustomUserDetails();
@@ -75,6 +79,8 @@ public class BoardController {
         boarddata.setTitle(boardDTO.getTitle());
         boarddata.setText(boardDTO.getText());
         boarddata.setWriterId(curmember.getId());
+        //DateTime !!!!
+        boarddata.setCreatedDate(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));//날짜 기본값 안되나?
 
         boardService.persist(boarddata);
         return "redirect:/board";
@@ -84,19 +90,30 @@ public class BoardController {
     public String showOne(@PathVariable Long boardid, Model model){
         Board board = boardService.selectOne(boardid);
         String boardWriterNick = customUserDetailsService.MemberById(board.getWriterId()).getNickname();
-        List<Comment> comments = commentService.selectByBoardid(boardid);
+//        List<Comment> comments = commentService.selectByBoardid(boardid);
 
-        Map<Long,String> replynicknameMap = new HashMap<>();
-
-        for(Comment c: comments){
-            replynicknameMap.put(c.getWriterId(), customUserDetailsService.MemberById(c.getWriterId()).getNickname());
+        //본댓글 //boardid번 board의 본댓글
+        List<Comment> CommentsofBoard = commentService.selectByBoardid(boardid);
+        // 대댓글 Map<Long, List<Comment>> rereplys
+        // rereplys[parentId]
+        Map<Long,List<Comment>> rereplys = new HashMap<>();
+        for(Comment reply : CommentsofBoard){
+            rereplys.put(reply.getId(),commentService.selectByParentId(reply.getId()));
+            for(Comment rereply: rereplys.get(reply.getId())){
+                System.out.println("Id(parent)"+reply.getId()+"번의 대댓글-"+rereply.getId());
+            }
         }
+//        Map<Long,String> replynicknameMap = new HashMap<>();
+//
+//        for(Comment c: comments){
+//            replynicknameMap.put(c.getWriterId(), customUserDetailsService.MemberById(c.getWriterId()).getNickname());
+//        }
 
-        //model 인자들을 보통은 json으로 넘긴다고?
+        //보통은 json으로 넘긴다고? model 인자들을?
         model.addAttribute("board",board);
         model.addAttribute("boardWriterNick",boardWriterNick);
-        model.addAttribute("comments",comments);
-        model.addAttribute("replynicknameMap",replynicknameMap);
+        model.addAttribute("CommentsofBoard",CommentsofBoard);
+//        model.addAttribute("replynicknameMap",replynicknameMap);
         return "board/detail";
     }
 
@@ -110,10 +127,14 @@ public class BoardController {
         //DTO를 Entity화
         Comment entityC = new Comment();
         entityC.setBoardid(boardid);
+        //그냥 본 댓글(대댓글x)
+        entityC.setParentId(0L);
         entityC.setWriterId(curmember.getId());
         entityC.setWriterName(curmember.getNickname());
         entityC.setText(commentDTO.getText());
+        entityC.setCreatedDate(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));//날짜 기본값 안되나?
 
+        System.out.println(entityC.toString());
         //save
         commentService.persist(entityC);
         return "redirect:/board/showOne/"+boardid;

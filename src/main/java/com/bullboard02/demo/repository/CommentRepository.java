@@ -13,8 +13,11 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     Comment getByWriterId(Long writerId);
     @Override
     List<Comment> findAll();
-
+    List<Comment> findAllById(Long id);
     List<Comment> findAllByBoardid(Long boardId);
+    //대댓글 찾기
+    List<Comment> findAllByParentIdAndAndBoardid(Long parentId,Long BoardId);
+    List<Comment> findAllByParentId(Long parentId);
 
     //long countCommentOfBoard(Long boardId);
     //이렇게 좆대로 말고 밑처럼 규칙 따르렴
